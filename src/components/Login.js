@@ -2,10 +2,12 @@ import React from 'react';
 import { Button, Container, Form, Image } from 'react-bootstrap';
 import useForm from '../Hooks/useForm'
 import { Link } from 'react-router-dom';
-                  
+import {useDispatch} from 'react-redux'                  
+import { actionLoginAsync, loginGoogle } from '../redux/actions/actionLogin';
 
 const Login = () => {
 
+        const dispatch =useDispatch()
 
     const [formValue, handleInputChange, reset] = useForm({
             email: '',
@@ -13,11 +15,12 @@ const Login = () => {
           
     })
 
+  const {email, pass}= formValue
   
     const handleSubmit=(e)=>{
         e.preventDefault()
-       console.log(useForm)
-       
+       console.log(formValue)
+       dispatch(actionLoginAsync(email, pass))
         reset()
     }
 
@@ -42,7 +45,7 @@ const Login = () => {
                 </Button>
 
                 <Button type="submit" variant="outline-info" style={{margin:"3%"}}  >
-                <Image  src="https://res.cloudinary.com/danimel/image/upload/v1655397953/google_ywov5r.png" alt="" />
+                <Image  src="https://res.cloudinary.com/danimel/image/upload/v1655397953/google_ywov5r.png" alt=""  onClick={()=> dispatch(loginGoogle())}/>
                 </Button>
 
                 <Button type="submit" variant="outline-info"  style={{margin:"1%"}}>

@@ -2,9 +2,12 @@ import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import useForm from '../Hooks/useForm';
-
+import {useDispatch} from 'react-redux'
+import {registrarUserAsync } from '../redux/actions/actionUsuario';
 
 const Register = () => {
+    
+    const dispatch = useDispatch()
        const [formValue, handleInputChange, reset] = useForm({
         nombre: '',
         email: '',
@@ -17,7 +20,7 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(nombre, email, pass, telefono, direccion)
-       
+        dispatch(registrarUserAsync(email, pass, nombre))
         reset()
     }
 
