@@ -1,10 +1,10 @@
-import { getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
 import { google } from "../../firebase/firebaseConfig"
 import { typesLogin } from "../types/types"
 
 //--------------Login con email y pass-----------------------/
 export const actionLoginAsync = (email, pass)=>{
-    return (dispatch)=>{
+        return (dispatch)=>{
         const auth =getAuth()
         signInWithEmailAndPassword(auth, email, pass)
         .then(({user})=>{
@@ -26,13 +26,8 @@ export const actionLoginSync = (email, pass)=>{
         }
     }
 }
-//--------------Cerrar Sesión----------------------/
-export const actionLogoutSync = ()=>{
-    return {
-        type: typesLogin.Logout,
-      
-    }
-}
+
+
 
 
 //--------------Ingresar con Google-----------------------/
@@ -51,3 +46,24 @@ export const loginGoogle = ()=>{
     }
 }
 
+//--------------Cerrar Sesión----------------------/
+//--------------Logout---------------------------//
+export const actionLogoutAsyn = ()=>{
+    console.log('dentrooooo accc')
+    return (dispatch)=>{
+        const auth = getAuth();
+        signOut(auth)
+        .then(()=>{
+            dispatch(actionLogoutSyn())
+            console.log('Chao')
+        })
+        .catch((error)=>{console.warn(error, '')});
+    }
+}
+
+
+export const actionLogoutSyn = ()=>{
+    return {
+        type: typesLogin.Logout
+    }
+}

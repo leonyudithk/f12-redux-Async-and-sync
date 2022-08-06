@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button, Container, Image, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { actionLogoutAsyn } from '../redux/actions/actionLogin';
+import { useDispatch } from 'react-redux';
 
 
 const NavBars = () => {
+  const dispatch = useDispatch()
 
   return (
     <div>
@@ -19,7 +22,7 @@ const NavBars = () => {
            </Nav>
         </Container>
         <Nav>
-             <Button variant="outline-primary" >
+             <Button variant="outline-primary" onClick={() => dispatch(actionLogoutAsyn())}>
                  <Image  width="25%" src="https://res.cloudinary.com/danimel/image/upload/v1635784501/login_1_p33a7m.png" alt="" />
              </Button>
         </Nav>
